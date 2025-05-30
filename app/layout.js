@@ -15,6 +15,12 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "PreviApp",
   description: "La mejor parte de la noche",
+  themeColor: "#000000",
+  icons: {
+    icon: "/icon-192.png",
+    apple: "/icon-192.png",
+  }
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }) {
