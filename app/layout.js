@@ -22,6 +22,8 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <Head>
         <link rel="Manifest" href="/Manifest.json" />
+        <link rel="icon" href="/icon-192.png" />
+        <meta name="theme-color" content="#000000" />
       </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
