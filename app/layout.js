@@ -17,7 +17,7 @@ export const metadata = {
   description: "La mejor parte de la noche",
   themeColor: "#000000",
   icons: {
-    icon: "/icon-192.png",
+    icon: "/Icon1-192.png",
     apple: "/icon-192.png",
   }
   manifest: "/manifest.json",
