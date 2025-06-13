@@ -76,6 +76,26 @@ export default function LoginPage() {
         button:hover {
           box-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
         }
+
+        .link {
+          margin-top: 1.5rem;
+          text-align: center;
+          font-family: 'Orbitron', sans-serif;
+          font-size: 0.95rem;
+          color: #aaa;
+          text-decoration: none;
+        }
+
+        .link span {
+          color: #ff007f;
+          text-shadow: 0 0 5px #ff007f99;
+          cursor: pointer;
+          transition: color 0.3s;
+        }
+
+        .link span:hover {
+          color: #fff;
+        }
       `}</style>
 
       <div className="container">
@@ -97,6 +117,9 @@ export default function LoginPage() {
           />
           <button type="submit">Entrar</button>
         </form>
+        <a href="/register" className="link">
+          ¿No tenés cuenta? <span>Crear una cuenta</span>
+        </a>
       </div>
     </main>
   );
