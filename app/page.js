@@ -1,14 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const [show, setShow] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => setShow(true), 100);
+    const timer = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleStart = () => {
+    router.push('/login');
+  };
 
   return (
     <main style={{ margin: 0, padding: 0 }}>
@@ -22,43 +28,45 @@ export default function Home() {
           justify-content: center;
           align-items: center;
           overflow: hidden;
+          padding: 0 2rem;
         }
 
         h1 {
           font-size: 3rem;
-          text-align: center;
           color: #ff007f;
-          text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f;
+          text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
           opacity: 0;
-          transform: translateY(-30px);
+          transform: translateY(-20px);
           transition: all 1s ease;
+          text-align: center;
         }
 
         p {
           font-size: 1.2rem;
-          color: #bbb;
-          margin-top: 10px;
+          color: #ccc;
+          margin-top: 1rem;
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(20px);
           transition: all 1s ease 0.3s;
+          text-align: center;
         }
 
         .button {
-          margin-top: 2rem;
-          padding: 1rem 2rem;
+          margin-top: 2.5rem;
+          padding: 0.8rem 2rem;
           background-color: transparent;
           border: 2px solid #ff007f;
           color: #ff007f;
           font-size: 1rem;
-          border-radius: 8px;
+          border-radius: 30px;
           cursor: pointer;
           transition: all 0.4s ease;
         }
 
         .button:hover {
           background-color: #ff007f;
-          color: black;
-          box-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 40px #ff007f;
+          color: #000;
+          box-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #ff007f;
         }
 
         .visible {
@@ -68,12 +76,17 @@ export default function Home() {
       `}</style>
 
       <div className="container">
-        <h1 className={show ? 'visible' : ''}>La noche empieza en PreviApp</h1>
-        <p className={show ? 'visible' : ''}>Encontrá tu previa, conectá con otros grupos y viví la experiencia.</p>
-        <button className="button">Explorar boliches</button>
+        <h1 className={visible ? 'visible' : ''}>Bienvenido a PreviApp</h1>
+        <p className={visible ? 'visible' : ''}>
+          Encontrá tu previa, conectá y viví la experiencia.
+        </p>
+        <button className="button" onClick={handleStart}>
+          Comenzar
+        </button>
       </div>
     </main>
   );
 }
+
 
 
