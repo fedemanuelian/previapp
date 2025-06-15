@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const subtitleFull = 'Viví la experiencia';
   const [subtitleText, setSubtitleText] = useState('');
+  const [fadeOut, setFadeOut] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -14,10 +15,9 @@ export default function Home() {
     if (introVisto) {
       router.replace('/login');
     } else {
-      // Guardamos que ya la vieron
       localStorage.setItem('introVisto', 'true');
 
-      // Animación del subtítulo
+      // Animación de subtítulo
       let current = 0;
       const interval = setInterval(() => {
         if (current <= subtitleFull.length) {
@@ -28,9 +28,12 @@ export default function Home() {
         }
       }, 100);
 
-      // Redirección automática después de 3.5 segundos
+      // Fade + redirección
       const timeout = setTimeout(() => {
-        router.replace('/login');
+        setFadeOut(true);
+        setTimeout(() => {
+          router.replace('/login');
+        }, 500); // espera que termine el fade
       }, 3500);
 
       return () => {
@@ -55,6 +58,12 @@ export default function Home() {
           font-family: 'Poppins', sans-serif;
           position: relative;
           overflow: hidden;
+          transition: opacity 0.5s ease-in-out;
+          opacity: 1;
+        }
+
+        .container.fade-out {
+          opacity: 0;
         }
 
         .lights {
@@ -89,7 +98,7 @@ export default function Home() {
         }
       `}</style>
 
-      <div className="container">
+      <div className={`container ${fadeOut ? 'fade-out' : ''}`}>
         <div className="lights" />
         <h1>PreviApp</h1>
         <p>{subtitleText}</p>
