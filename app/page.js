@@ -4,12 +4,21 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   const subtitleFull = 'Viví la experiencia';
+
   const [subtitleText, setSubtitleText] = useState('');
   const [fadeOut, setFadeOut] = useState(false);
-  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Esperamos que esté montado del lado del cliente
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const introVisto = localStorage.getItem('introVisto');
 
     if (introVisto) {
@@ -17,7 +26,7 @@ export default function Home() {
     } else {
       localStorage.setItem('introVisto', 'true');
 
-      // Animación de subtítulo
+      // Animación del subtítulo
       let current = 0;
       const interval = setInterval(() => {
         if (current <= subtitleFull.length) {
@@ -28,12 +37,12 @@ export default function Home() {
         }
       }, 100);
 
-      // Fade + redirección
+      // Fade y redirección
       const timeout = setTimeout(() => {
         setFadeOut(true);
         setTimeout(() => {
           router.replace('/login');
-        }, 500); // espera que termine el fade
+        }, 500); // espera que se vea el fade
       }, 3500);
 
       return () => {
@@ -41,7 +50,7 @@ export default function Home() {
         clearInterval(interval);
       };
     }
-  }, []);
+  }, [isClient]);
 
   return (
     <main>
@@ -106,5 +115,3 @@ export default function Home() {
     </main>
   );
 }
-
-
