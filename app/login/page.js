@@ -8,14 +8,13 @@ export default function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Acá irá la lógica real de login
     alert(`Login con:\nCorreo: ${email}\nContraseña: ${password}`);
   };
 
   return (
-    <main style={{ margin: 0, padding: 0 }}>
+    <main>
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap');
 
         .container {
           height: 100vh;
@@ -26,14 +25,13 @@ export default function LoginPage() {
           justify-content: center;
           align-items: center;
           padding: 2rem;
+          font-family: 'DM Sans', sans-serif;
         }
 
         h1 {
-          font-family: 'Orbitron', sans-serif;
           font-size: 2.5rem;
           color: #ff007f;
           margin-bottom: 2rem;
-          text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
         }
 
         form {
@@ -49,22 +47,20 @@ export default function LoginPage() {
           border: none;
           border-radius: 6px;
           font-size: 1rem;
-          font-family: 'Orbitron', sans-serif;
           background-color: #111;
           color: #fff;
           border: 1px solid #ff007f33;
-          outline: none;
         }
 
         input:focus {
           border-color: #ff007f;
           box-shadow: 0 0 8px #ff007f55;
+          outline: none;
         }
 
         button {
           background-color: #ff007f;
           color: #000;
-          font-family: 'Orbitron', sans-serif;
           font-size: 1rem;
           padding: 0.75rem;
           border: none;
@@ -80,17 +76,13 @@ export default function LoginPage() {
         .link {
           margin-top: 1.5rem;
           text-align: center;
-          font-family: 'Orbitron', sans-serif;
           font-size: 0.95rem;
           color: #aaa;
-          text-decoration: none;
         }
 
         .link span {
           color: #ff007f;
-          text-shadow: 0 0 5px #ff007f99;
           cursor: pointer;
-          transition: color 0.3s;
         }
 
         .link span:hover {
@@ -99,7 +91,7 @@ export default function LoginPage() {
       `}</style>
 
       <div className="container">
-        <h1>Iniciar Sesión</h1>
+        <h1>Iniciar sesión</h1>
         <form onSubmit={handleLogin}>
           <input
             type="email"
@@ -124,4 +116,5 @@ export default function LoginPage() {
     </main>
   );
 }
+
 
