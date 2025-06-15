@@ -4,21 +4,20 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const fullText = 'PreviApp';
-  const [displayedText, setDisplayedText] = useState('');
+  const subtitleFull = 'Viví la experiencia';
+  const [subtitleText, setSubtitleText] = useState('');
   const router = useRouter();
 
   useEffect(() => {
     let current = 0;
-
     const interval = setInterval(() => {
-      if (current <= fullText.length) {
-        setDisplayedText(fullText.slice(0, current));
+      if (current <= subtitleFull.length) {
+        setSubtitleText(subtitleFull.slice(0, current));
         current++;
       } else {
         clearInterval(interval);
       }
-    }, 150);
+    }, 100);
 
     return () => clearInterval(interval);
   }, []);
@@ -97,8 +96,8 @@ export default function Home() {
 
       <div className="container">
         <div className="lights" />
-        <h1>{displayedText}</h1>
-        <p>Viví la experiencia</p>
+        <h1>PreviApp</h1>
+        <p>{subtitleText}</p>
         <button className="button" onClick={handleStart}>
           Comenzar
         </button>
@@ -106,5 +105,4 @@ export default function Home() {
     </main>
   );
 }
-
 
