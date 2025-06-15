@@ -9,22 +9,36 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    let current = 0;
-    const interval = setInterval(() => {
-      if (current <= subtitleFull.length) {
-        setSubtitleText(subtitleFull.slice(0, current));
-        current++;
-      } else {
+    const introVisto = localStorage.getItem('introVisto');
+
+    if (introVisto) {
+      router.replace('/login');
+    } else {
+      // Guardamos que ya la vieron
+      localStorage.setItem('introVisto', 'true');
+
+      // Animación del subtítulo
+      let current = 0;
+      const interval = setInterval(() => {
+        if (current <= subtitleFull.length) {
+          setSubtitleText(subtitleFull.slice(0, current));
+          current++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 100);
+
+      // Redirección automática después de 3.5 segundos
+      const timeout = setTimeout(() => {
+        router.replace('/login');
+      }, 3500);
+
+      return () => {
+        clearTimeout(timeout);
         clearInterval(interval);
-      }
-    }, 100);
-
-    return () => clearInterval(interval);
+      };
+    }
   }, []);
-
-  const handleStart = () => {
-    router.push('/login');
-  };
 
   return (
     <main>
@@ -73,36 +87,15 @@ export default function Home() {
           color: #ccc;
           z-index: 1;
         }
-
-        .button {
-          margin-top: 2.5rem;
-          padding: 0.8rem 2rem;
-          background-color: transparent;
-          border: 2px solid #ff007f;
-          color: #ff007f;
-          font-size: 1rem;
-          border-radius: 30px;
-          cursor: pointer;
-          transition: all 0.4s ease;
-          z-index: 1;
-        }
-
-        .button:hover {
-          background-color: #ff007f;
-          color: #000;
-          box-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
-        }
       `}</style>
 
       <div className="container">
         <div className="lights" />
         <h1>PreviApp</h1>
         <p>{subtitleText}</p>
-        <button className="button" onClick={handleStart}>
-          Comenzar
-        </button>
       </div>
     </main>
   );
 }
+
 
