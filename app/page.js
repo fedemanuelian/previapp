@@ -9,48 +9,32 @@ export default function Home() {
 
   const [subtitleText, setSubtitleText] = useState('');
   const [fadeOut, setFadeOut] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Esperamos que esté montado del lado del cliente
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
-    const introVisto = localStorage.getItem('introVisto');
-
-    if (introVisto) {
-      router.replace('/login');
-    } else {
-      localStorage.setItem('introVisto', 'true');
-
-      // Animación del subtítulo
-      let current = 0;
-      const interval = setInterval(() => {
-        if (current <= subtitleFull.length) {
-          setSubtitleText(subtitleFull.slice(0, current));
-          current++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 100);
-
-      // Fade y redirección
-      const timeout = setTimeout(() => {
-        setFadeOut(true);
-        setTimeout(() => {
-          router.replace('/login');
-        }, 500); // espera que se vea el fade
-      }, 3500);
-
-      return () => {
-        clearTimeout(timeout);
+    // Animación del subtítulo
+    let current = 0;
+    const interval = setInterval(() => {
+      if (current <= subtitleFull.length) {
+        setSubtitleText(subtitleFull.slice(0, current));
+        current++;
+      } else {
         clearInterval(interval);
-      };
-    }
-  }, [isClient]);
+      }
+    }, 100);
+
+    // Fade-out + redirección después de 3.5s
+    const timeout = setTimeout(() => {
+      setFadeOut(true);
+      setTimeout(() => {
+        router.replace('/login');
+      }, 1200); // transición suave
+    }, 3500);
+
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <main>
@@ -67,7 +51,7 @@ export default function Home() {
           font-family: 'Poppins', sans-serif;
           position: relative;
           overflow: hidden;
-          transition: opacity 0.5s ease-in-out;
+          transition: opacity 1.2s ease-in-out;
           opacity: 1;
         }
 
