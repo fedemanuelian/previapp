@@ -1,14 +1,27 @@
 'use client';
 
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    alert(`Login con:\nCorreo: ${email}\nContraseña: ${password}`);
+    try {
+      const response = await axios.post('https://tasty-turtles-double.loca.lt/api/login', {
+        email,
+        password
+      });
+
+      console.log('Respuesta del backend:', response.data);
+      alert('Inicio de sesión exitoso');
+      // Podés agregar acá una redirección o guardar el token
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      alert('Error al iniciar sesión');
+    }
   };
 
   return (
@@ -116,5 +129,7 @@ export default function LoginPage() {
     </main>
   );
 }
+
+      
 
 
