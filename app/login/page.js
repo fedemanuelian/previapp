@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function LoginPage() {
+export default function Page() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +17,7 @@ export default function LoginPage() {
 
       console.log('Respuesta del backend:', response.data);
       alert('Inicio de sesión exitoso');
-      // Podés agregar acá una redirección o guardar el token
+      // Podés redirigir al home o guardar token acá si lo implementás más adelante
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       alert('Error al iniciar sesión');
