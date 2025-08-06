@@ -5,22 +5,10 @@ import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
-  const subtitleFull = 'Viví la experiencia';
 
-  const [subtitleText, setSubtitleText] = useState('');
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    let current = 0;
-    const interval = setInterval(() => {
-      if (current <= subtitleFull.length) {
-        setSubtitleText(subtitleFull.slice(0, current));
-        current++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 100);
-
     const timeout = setTimeout(() => {
       setFadeOut(true);
       setTimeout(() => {
@@ -30,7 +18,6 @@ export default function Home() {
 
     return () => {
       clearTimeout(timeout);
-      clearInterval(interval);
     };
   }, []);
 
@@ -40,7 +27,7 @@ export default function Home() {
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
         .container {
-          background: linear-gradient(145deg, #000000, #0d0d0d);
+          background: linear-gradient(160deg, #0a0a0a, #1a1a1a);
           height: 100vh;
           display: flex;
           flex-direction: column;
@@ -57,29 +44,24 @@ export default function Home() {
           opacity: 0;
         }
 
-        .lights::before,
-        .lights::after {
-          content: '';
+        .animated-bg {
           position: absolute;
-          width: 150%;
-          height: 150%;
-          top: -25%;
-          left: -25%;
-          background: radial-gradient(circle, #ff007f33 0%, transparent 60%),
-                      radial-gradient(circle, #00ffff22 0%, transparent 70%);
-          animation: moveLights 8s linear infinite;
+          width: 200%;
+          height: 200%;
+          background: repeating-linear-gradient(
+            45deg,
+            rgba(255, 0, 128, 0.05) 0,
+            rgba(255, 0, 128, 0.05) 1px,
+            transparent 1px,
+            transparent 20px
+          );
+          animation: slide 10s linear infinite;
           z-index: 0;
-          mix-blend-mode: screen;
         }
 
-        .lights::after {
-          animation-direction: reverse;
-          transform: rotate(45deg);
-        }
-
-        @keyframes moveLights {
-          0% { transform: rotate(0deg) scale(1); }
-          100% { transform: rotate(360deg) scale(1.05); }
+        @keyframes slide {
+          0% { transform: translateX(0) translateY(0); }
+          100% { transform: translateX(-100px) translateY(-100px); }
         }
 
         h1 {
@@ -92,14 +74,6 @@ export default function Home() {
           animation: neonFade 2s ease-out forwards;
         }
 
-        p {
-          margin-top: 1.2rem;
-          font-size: 1.5rem;
-          color: #ffffffcc;
-          z-index: 1;
-          animation: neonFade 2s ease-out forwards;
-        }
-
         @keyframes neonFade {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
@@ -107,11 +81,9 @@ export default function Home() {
       `}</style>
 
       <div className={`container ${fadeOut ? 'fade-out' : ''}`}>
-        <div className="lights" />
+        <div className="animated-bg" />
         <h1>PreviApp</h1>
-        <p>{subtitleText}</p>
       </div>
     </main>
   );
 }
-
